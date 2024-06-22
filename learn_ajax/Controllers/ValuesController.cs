@@ -9,18 +9,26 @@ namespace learn_ajax.Controllers
 {
     public class ValuesController : ApiController
     {
+        /*
+        
         // GET api/values
-        public IEnumerable<string> Get()
+        public EInumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
+             
+        */
+
         // GET api/values/5
-        public string Get(int id)
+        public string Get(/*int id*/ string Name, int Number)
         {
-            return "value";
+            return "Data: Name - " + Name + ", Number - " + Number;
+
+            //return "value";
         }
 
+        /*
         // POST api/values
         public void Post([FromBody]string value)
         {
@@ -35,5 +43,6 @@ namespace learn_ajax.Controllers
         public void Delete(int id)
         {
         }
+        */
     }
 }

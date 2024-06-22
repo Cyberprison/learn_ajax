@@ -1,20 +1,53 @@
 ﻿
 
+@{ 
+    Layout = null;
+}
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>learn ajax</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <script>
+        function funcBefore() {
+            $('#information').text('Data is loading');
+        };
 
+        function funcSuccess(data) {
+            $('#information').text(data);
+        };
 
+        $(document).ready(function () {
+            $('#load').bind('click', function () {
+                $.ajax({
+                    url: '/api/values/',
+                    type: 'GET',
+                    data: {
+                        Name: "admin",
+                        Number: 52
+                    },
+                    //dataType: 'html',
+                    beforeSend: funcBefore,
+                    success: funcSuccess 
+                });
+            });
+        });
 
+    </script>
 
+</head>
+    <body>
+        <p id="load" style="cursor: pointer">Load data</p>
 
+        <div id="information">
 
+        </div>
 
-
-
-
-
-
+    </body>
+</html>
 
 
 
@@ -46,3 +79,6 @@
     </div>
 
 -->
+
+
+
