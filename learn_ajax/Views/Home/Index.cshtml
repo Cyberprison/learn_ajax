@@ -25,13 +25,31 @@
                 $.ajax({
                     url: '/api/values/',
                     type: 'GET',
-                    data: {
+                    data: ({
                         Name: "admin",
                         Number: 52
-                    },
-                    //dataType: 'html',
+                    }),
                     beforeSend: funcBefore,
                     success: funcSuccess 
+                });
+            });
+
+            $('#done').bind('click', function () {
+                $.ajax({
+                    url: '/api/values/',
+                    type: 'GET',
+                    data: ({
+                        Name: $('#name').val()
+                    }),
+                    beforeSend: funcBefore,
+                    success: function (data) {
+                        if (data == "Fail") {
+                            alert("name taken");
+                        }
+                        else {
+                            $('#information').text(data);
+                        }
+                    }
                 });
             });
         });
@@ -40,6 +58,9 @@
 
 </head>
     <body>
+        <input id="name" type="text" placeholder="Write your name" />
+        <input id="done" type="button" value="Enter" />
+
         <p id="load" style="cursor: pointer">Load data</p>
 
         <div id="information">
