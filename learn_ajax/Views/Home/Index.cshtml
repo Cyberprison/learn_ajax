@@ -12,60 +12,42 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
-        function funcBefore() {
-            $('#information').text('Data is loading');
-        };
-
-        function funcSuccess(data) {
-            $('#information').text(data);
-        };
-
         $(document).ready(function () {
-            $('#load').bind('click', function () {
-                $.ajax({
-                    url: '/api/values/',
-                    type: 'GET',
-                    data: ({
-                        Name: "admin",
-                        Number: 52
-                    }),
-                    beforeSend: funcBefore,
-                    success: funcSuccess 
-                });
-            });
+            $('select[name="country"]').bind('change', function () {
+                $('select[name="city"]').empty();
 
-            $('#done').bind('click', function () {
-                $.ajax({
-                    url: '/api/values/',
-                    type: 'GET',
-                    data: ({
-                        Name: $('#name').val()
-                    }),
-                    beforeSend: funcBefore,
-                    success: function (data) {
-                        if (data == "Fail") {
-                            alert("name taken");
-                        }
-                        else {
-                            $('#information').text(data);
+                $.get(
+                    '/api/values/',
+                    {
+                        country: $('select[name="country"]').val()
+                    },
+                    function (data) {
+                        data = JSON.parse(data);
+
+                        for (let id in data) {
+                            $('select[name="city"]').append($("<option value='" + id + "'>" + data[id] + "</option>"));
                         }
                     }
-                });
+                );
             });
         });
-
     </script>
 
 </head>
     <body>
-        <input id="name" type="text" placeholder="Write your name" />
-        <input id="done" type="button" value="Enter" />
+        <label>Choice country</label>
+        <select name="country">
+            <option value="0" selected="selected"></option>
+            <option value="1">France</option>
+            <option value="2">USA</option>
+        </select>
 
-        <p id="load" style="cursor: pointer">Load data</p>
+        <br/>
 
-        <div id="information">
-
-        </div>
+        <label>City:</label>
+        <select name="city">
+            <option value="0"></option>
+        </select>
 
     </body>
 </html>
